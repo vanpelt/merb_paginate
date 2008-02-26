@@ -6,18 +6,17 @@ module MerbPaginate
   # You can activate other things on your own...
   def self.activate!(type)
     
-    case type
-      
-    when :datamapper_finder # help out by creating finders for other orms...I will make this more plugable soon
+    if type.is_a?(Hash) && !type[:finder].blank?
       Merb::BootLoader.before_app_loads do
-        require 'merb_paginate/dm_finder'
+        require 'merb_paginate/finders'
+        MerbPaginate::Finders.activate!(type[:finder])
       end
-      
-    when :view_helpers
+    end
+    
+    if type == :view_helpers
       Merb::BootLoader.before_app_loads do
         require 'merb_paginate/view_helpers'
       end
-      
     end
     
   end

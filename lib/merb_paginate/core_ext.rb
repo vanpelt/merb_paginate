@@ -65,6 +65,14 @@ unless String.instance_methods.include? 'constantize'
   end
 end
 
+unless String.instance_methods.include? 'camelize'
+  String.class_eval do
+    def camelize
+      Inflector.camelize(self)
+    end
+  end
+end
+
 require 'merb_paginate/collection'
 
 unless Array.instance_methods.include? 'paginate'
