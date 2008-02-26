@@ -23,7 +23,7 @@ Usage
 Using this plugin is like so in init.rb:
 
   dependency 'merb_paginate'
-  MerbPaginate.activate! :datamapper_finder # require the custom finder for datamapper
+  MerbPaginate.activate! :finder => :datamapper # require the custom finder for datamapper
   MerbPaginate.activate! :view_helpers # require the will_paginate view helper
 
 I hope to have a paginate finder for each orm evenutally. (Hint: contribute!)
