@@ -80,7 +80,7 @@ module MerbPaginate
     def will_paginate(collection, options = {}) # collection is required now! Booya!
       # early exit if there is nothing to render
       return nil unless collection.page_count > 1
-      options = options.symbolize_keys!.reverse_merge MerbPaginate::ViewHelpers.pagination_options
+      options = options.to_mash.reverse_merge MerbPaginate::ViewHelpers.pagination_options
       # create the renderer instance
       renderer_class = options[:renderer].to_s.constantize
       renderer = renderer_class.new collection, options, self
@@ -205,7 +205,7 @@ module MerbPaginate
     end
 
     def params
-      @params ||= @template.params.to_hash.symbolize_keys!
+      @params ||= @template.params.to_mash
     end
   end
 end

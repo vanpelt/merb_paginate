@@ -117,14 +117,15 @@ module MerbPaginate
           count_options.update options[:count] if options[:count]
 
           # we may have to scope ...
-          counter = count(count_options)
+          # To deal with a bug in datamapper 0.2.5
+          counter = count_options.empty? ? count : count(count_options)
 
           count.respond_to?(:length) ? count.length : count
         end
 
         def wp_parse_options(options) #:nodoc:
-          raise ArgumentError, 'parameter hash expected' unless options.respond_to? :symbolize_keys!
-          options = options.symbolize_keys!
+          raise ArgumentError, 'parameter hash expected' unless options.respond_to? :to_mash
+          options = options.to_mash
           raise ArgumentError, ':page parameter required' unless options.key? :page
         
           if options[:count] and options[:total_entries]
