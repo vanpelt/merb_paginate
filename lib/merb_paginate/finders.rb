@@ -120,7 +120,7 @@ module MerbPaginate
           # To deal with a bug in datamapper 0.2.5
           counter = count_options.empty? ? count : count(count_options)
 
-          count.respond_to?(:length) ? count.length : count
+          counter.respond_to?(:length) ? counter.length : counter
         end
 
         def wp_parse_options(options) #:nodoc:
